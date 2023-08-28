@@ -19,6 +19,8 @@ pub struct ScheduleEntry {
     pub duration: u64,
     #[serde(default = "empty_string")]
     pub notes: String,
+    #[serde(default = "unset_bool")]
+    pub done: bool,
 }
 
 unsafe impl Send for ScheduleEntry {}
@@ -34,10 +36,14 @@ impl ScheduleEntry {
             times: Vec::new(),
             duration: u64::MAX,
             notes: String::new(),
+            done: false,
         }
     }
 }
 
+fn unset_bool() -> bool {
+    return false;
+}
 fn unset_id() -> u64 {
     return u64::MAX;
 }
