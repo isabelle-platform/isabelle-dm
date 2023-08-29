@@ -1,26 +1,18 @@
 use yew::prelude::*;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 pub struct ScheduleEntry {
     #[serde(default = "unset_id")]
     pub id: u64,
-    #[serde(default = "set_false")]
-    pub is_group: bool,
-    #[serde(default = "empty_u64_set")]
-    pub mentees: Vec<u64>,
-    #[serde(default = "empty_u64_set")]
-    pub users: Vec<u64>,
-    #[serde(default = "empty_u64_set")]
-    pub teachers: Vec<u64>,
-    #[serde(default = "empty_u64_set")]
-    pub times: Vec<u64>,
-    #[serde(default = "unset_duration")]
-    pub duration: u64,
-    #[serde(default = "empty_string")]
-    pub notes: String,
-    #[serde(default = "unset_bool")]
-    pub done: bool,
+
+    #[serde(default = "unset_bool_params")]
+    pub bool_params: HashMap<String, bool>,
+    #[serde(default = "unset_id_params")]
+    pub id_params: HashMap<String, u64>,
+    #[serde(default = "unset_str_params")]
+    pub str_params: HashMap<String, String>,
 }
 
 unsafe impl Send for ScheduleEntry {}
@@ -29,37 +21,25 @@ impl ScheduleEntry {
     pub fn new() -> Self {
         Self {
             id: u64::MAX,
-            is_group: false,
-            mentees: Vec::new(),
-            users: Vec::new(),
-            teachers: Vec::new(),
-            times: Vec::new(),
-            duration: u64::MAX,
-            notes: String::new(),
-            done: false,
+            bool_params: HashMap::new(),
+            id_params: HashMap::new(),
+            str_params: HashMap::new(),
         }
     }
 }
 
-fn unset_bool() -> bool {
-    return false;
-}
 fn unset_id() -> u64 {
     return u64::MAX;
 }
 
-fn unset_duration() -> u64 {
-    return 0;
+fn unset_bool_params() -> HashMap<String, bool> {
+    return HashMap::new()
 }
 
-fn empty_string() -> String {
-    return "".to_string();
+fn unset_id_params() -> HashMap<String, u64> {
+    return HashMap::new()
 }
 
-fn set_false() -> bool {
-    return false;
-}
-
-fn empty_u64_set() -> Vec<u64> {
-    return Vec::new();
+fn unset_str_params() -> HashMap<String, String> {
+    return HashMap::new()
 }

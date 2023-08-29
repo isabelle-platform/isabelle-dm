@@ -1,7 +1,7 @@
-use crate::data_model::user::User;
+use crate::data_model::item::Item;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
-pub struct UserList {
-    pub users: Vec<User>,
+pub struct ItemList {
+    pub items: Vec<Item>,
 }

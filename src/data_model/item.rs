@@ -1,0 +1,41 @@
+use yew::prelude::*;
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+
+#[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+pub struct Item {
+    #[serde(default = "unset_id")]
+    pub id: u64,
+
+    /* Roles: admin, staff, teacher, student, horse */
+    #[serde(default = "unset_role")]
+    pub role: Vec<String>,
+
+    #[serde(default = "unset_map")]
+    pub fields: HashMap<String, String>,
+
+}
+
+unsafe impl Send for Item {}
+
+impl Item {
+    pub fn new() -> Self {
+        Self {
+            id: u64::MAX,
+            role: Vec::new(),
+            fields: HashMap::new(),
+        }
+    }
+}
+
+fn unset_map() -> HashMap<String, String> {
+    return HashMap::new();
+}
+
+fn unset_role() -> Vec<String> {
+    return Vec::new();
+}
+
+fn unset_id() -> u64 {
+    return u64::MAX;
+}
