@@ -13,7 +13,6 @@ pub struct Item {
 
     #[serde(default = "unset_map")]
     pub fields: HashMap<String, String>,
-
 }
 
 unsafe impl Send for Item {}
@@ -24,6 +23,15 @@ impl Item {
             id: u64::MAX,
             role: Vec::new(),
             fields: HashMap::new(),
+        }
+    }
+
+    pub fn safe_str(&self, name: &str, def: String) -> String {
+        if self.fields.contains_key(name) {
+            self.fields[name].clone()
+        }
+        else {
+            def
         }
     }
 }
