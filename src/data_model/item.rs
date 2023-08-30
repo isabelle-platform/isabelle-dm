@@ -14,6 +14,9 @@ pub struct Item {
 
     #[serde(default = "unset_bool_map")]
     pub bool_params: HashMap<String, bool>,
+
+    #[serde(default = "unset_id_map")]
+    pub id_params: HashMap<String, u64>,
 }
 
 unsafe impl Send for Item {}
@@ -24,6 +27,7 @@ impl Item {
             id: u64::MAX,
             fields: HashMap::new(),
             bool_params: HashMap::new(),
+            id_params: HashMap::new(),
         }
     }
 
@@ -44,6 +48,15 @@ impl Item {
             def
         }
     }
+
+    pub fn safe_id(&self, name: &str, def: u64) -> u64 {
+        if self.id_params.contains_key(name) {
+            self.id_params[name].clone()
+        }
+        else {
+            def
+        }
+    }
 }
 
 fn unset_str_map() -> HashMap<String, String> {
@@ -51,6 +64,10 @@ fn unset_str_map() -> HashMap<String, String> {
 }
 
 fn unset_bool_map() -> HashMap<String, bool> {
+    return HashMap::new();
+}
+
+fn unset_id_map() -> HashMap<String, u64> {
     return HashMap::new();
 }
 
