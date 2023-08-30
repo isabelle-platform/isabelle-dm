@@ -9,8 +9,11 @@ pub struct Item {
 
     /* Roles: admin, staff, teacher, student, horse */
 
-    #[serde(default = "unset_map")]
+    #[serde(default = "unset_str_map")]
     pub fields: HashMap<String, String>,
+
+    #[serde(default = "unset_bool_map")]
+    pub bool_params: HashMap<String, bool>,
 }
 
 unsafe impl Send for Item {}
@@ -20,6 +23,7 @@ impl Item {
         Self {
             id: u64::MAX,
             fields: HashMap::new(),
+            bool_params: HashMap::new(),
         }
     }
 
@@ -33,7 +37,11 @@ impl Item {
     }
 }
 
-fn unset_map() -> HashMap<String, String> {
+fn unset_str_map() -> HashMap<String, String> {
+    return HashMap::new();
+}
+
+fn unset_bool_map() -> HashMap<String, bool> {
     return HashMap::new();
 }
 
