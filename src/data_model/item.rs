@@ -35,6 +35,15 @@ impl Item {
             def
         }
     }
+
+    pub fn safe_bool(&self, name: &str, def: bool) -> bool {
+        if self.bool_params.contains_key(name) {
+            self.bool_params[name].clone()
+        }
+        else {
+            def
+        }
+    }
 }
 
 fn unset_str_map() -> HashMap<String, String> {
