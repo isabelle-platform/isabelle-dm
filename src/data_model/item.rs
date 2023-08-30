@@ -8,8 +8,6 @@ pub struct Item {
     pub id: u64,
 
     /* Roles: admin, staff, teacher, student, horse */
-    #[serde(default = "unset_role")]
-    pub role: Vec<String>,
 
     #[serde(default = "unset_map")]
     pub fields: HashMap<String, String>,
@@ -21,7 +19,6 @@ impl Item {
     pub fn new() -> Self {
         Self {
             id: u64::MAX,
-            role: Vec::new(),
             fields: HashMap::new(),
         }
     }
@@ -38,10 +35,6 @@ impl Item {
 
 fn unset_map() -> HashMap<String, String> {
     return HashMap::new();
-}
-
-fn unset_role() -> Vec<String> {
-    return Vec::new();
 }
 
 fn unset_id() -> u64 {
