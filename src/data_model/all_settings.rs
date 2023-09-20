@@ -21,4 +21,25 @@ impl AllSettings {
             id_params: HashMap::new(),
         }
     }
+
+    pub fn safe_str(self, key: &str, def: &str) -> String {
+	    if self.str_params.contains_key(key) {
+	        return self.str_params[key].clone();
+	    }
+	    return def.to_string();
+	}
+
+	pub fn safe_bool(self, key: &str, def: bool) -> bool {
+	    if self.bool_params.contains_key(key) {
+	        return self.bool_params[key].clone();
+	    }
+	    return def;
+	}
+
+	pub fn safe_id(self, key: &str, def: u64) -> u64 {
+	    if self.id_params.contains_key(key) {
+	        return self.id_params[key].clone();
+	    }
+	    return def;
+	}
 }
