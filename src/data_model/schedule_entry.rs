@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use crate::util::accessor::*;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 pub struct ScheduleEntry {
@@ -10,11 +11,11 @@ pub struct ScheduleEntry {
     #[serde(default = "unset_time")]
     pub time: u64,
 
-    #[serde(default = "unset_bool_params")]
+    #[serde(default = "unset_bool_map")]
     pub bool_params: HashMap<String, bool>,
-    #[serde(default = "unset_id_params")]
+    #[serde(default = "unset_id_map")]
     pub id_params: HashMap<String, u64>,
-    #[serde(default = "unset_str_params")]
+    #[serde(default = "unset_str_map")]
     pub str_params: HashMap<String, String>,
 }
 
@@ -57,24 +58,4 @@ impl ScheduleEntry {
             def
         }
     }
-}
-
-fn unset_id() -> u64 {
-    return u64::MAX;
-}
-
-fn unset_time() -> u64 {
-    return 0;
-}
-
-fn unset_bool_params() -> HashMap<String, bool> {
-    return HashMap::new()
-}
-
-fn unset_id_params() -> HashMap<String, u64> {
-    return HashMap::new()
-}
-
-fn unset_str_params() -> HashMap<String, String> {
-    return HashMap::new()
 }

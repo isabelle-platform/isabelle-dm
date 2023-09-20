@@ -1,11 +1,15 @@
 use std::collections::HashMap;
 use yew::prelude::*;
 use serde::{Deserialize, Serialize};
+use crate::util::accessor::*;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 pub struct AllSettings {
+	#[serde(default = "unset_str_map")]
     pub str_params: HashMap<String, String>,
+    #[serde(default = "unset_bool_map")]
     pub bool_params: HashMap<String, bool>,
+    #[serde(default = "unset_id_map")]
     pub id_params: HashMap<String, u64>,
 }
 

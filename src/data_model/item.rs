@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use crate::util::accessor::*;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 pub struct Item {
@@ -59,18 +60,3 @@ impl Item {
     }
 }
 
-fn unset_str_map() -> HashMap<String, String> {
-    return HashMap::new();
-}
-
-fn unset_bool_map() -> HashMap<String, bool> {
-    return HashMap::new();
-}
-
-fn unset_id_map() -> HashMap<String, u64> {
-    return HashMap::new();
-}
-
-fn unset_id() -> u64 {
-    return u64::MAX;
-}
