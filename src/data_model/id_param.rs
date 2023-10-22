@@ -2,6 +2,6 @@ use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
-pub struct DelParam {
+pub struct IdParam {
     pub id: u64,
 }
