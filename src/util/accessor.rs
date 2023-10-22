@@ -32,6 +32,10 @@ pub fn unset_u64() -> u64 {
     return 0;
 }
 
+pub fn unset_u64_max() -> u64 {
+    return u64::MAX;
+}
+
 pub fn unset_time() -> u64 {
     return 0;
 }

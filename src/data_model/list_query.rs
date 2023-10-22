@@ -4,6 +4,9 @@ use yew::prelude::*;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 pub struct ListQuery {
+    #[serde(default = "unset_str")]
+    pub collection: String,
+
     #[serde(default = "unset_id")]
     pub id: u64,
 
@@ -12,4 +15,7 @@ pub struct ListQuery {
 
     #[serde(default = "unset_id")]
     pub id_max: u64,
+
+    #[serde(default = "unset_u64_max")]
+    pub limit: u64,
 }
