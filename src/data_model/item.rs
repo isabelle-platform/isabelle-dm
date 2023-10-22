@@ -1,7 +1,7 @@
-use yew::prelude::*;
+use crate::util::accessor::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use crate::util::accessor::*;
+use yew::prelude::*;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 pub struct Item {
@@ -45,8 +45,7 @@ impl Item {
     pub fn safe_str(&self, name: &str, def: &str) -> String {
         if self.strs.contains_key(name) {
             self.strs[name].clone()
-        }
-        else {
+        } else {
             def.to_string()
         }
     }
@@ -60,11 +59,14 @@ impl Item {
         }
     }
 
-    pub fn safe_strstr(&self, name: &str, def: &HashMap<String, String>) -> HashMap<String, String> {
+    pub fn safe_strstr(
+        &self,
+        name: &str,
+        def: &HashMap<String, String>,
+    ) -> HashMap<String, String> {
         if self.strstrs.contains_key(name) {
             self.strstrs[name].clone()
-        }
-        else {
+        } else {
             def.clone()
         }
     }
@@ -81,8 +83,7 @@ impl Item {
     pub fn safe_bool(&self, name: &str, def: bool) -> bool {
         if self.bools.contains_key(name) {
             self.bools[name].clone()
-        }
-        else {
+        } else {
             def
         }
     }
@@ -99,8 +100,7 @@ impl Item {
     pub fn safe_u64(&self, name: &str, def: u64) -> u64 {
         if self.ids.contains_key(name) {
             self.ids[name].clone()
-        }
-        else {
+        } else {
             def
         }
     }
@@ -117,8 +117,7 @@ impl Item {
     pub fn safe_id(&self, name: &str, def: u64) -> u64 {
         if self.ids.contains_key(name) {
             self.ids[name].clone()
-        }
-        else {
+        } else {
             def
         }
     }
@@ -154,4 +153,3 @@ impl Item {
         }
     }
 }
-
