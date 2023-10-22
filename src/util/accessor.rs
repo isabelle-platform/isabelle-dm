@@ -1,5 +1,13 @@
 use std::collections::HashMap;
 
+pub fn unset_bool() -> bool {
+    return false;
+}
+
+pub fn unset_str() -> String {
+    return "".to_string();
+}
+
 pub fn unset_str_map() -> HashMap<String, String> {
     return HashMap::new();
 }
