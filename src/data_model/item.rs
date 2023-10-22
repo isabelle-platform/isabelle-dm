@@ -51,12 +51,30 @@ impl Item {
         }
     }
 
+    pub fn set_str(&mut self, name: &str, val: &str) {
+        if self.strs.contains_key(name) {
+            let v = self.strs.get_mut(name).unwrap();
+            *v = val.to_string();
+        } else {
+            self.strs.insert(name.to_string(), val.to_string());
+        }
+    }
+
     pub fn safe_strstr(&self, name: &str, def: &HashMap<String, String>) -> HashMap<String, String> {
         if self.strstrs.contains_key(name) {
             self.strstrs[name].clone()
         }
         else {
             def.clone()
+        }
+    }
+
+    pub fn set_strstr(&mut self, name: &str, val: &HashMap<String, String>) {
+        if self.strstrs.contains_key(name) {
+            let v = self.strstrs.get_mut(name).unwrap();
+            *v = val.clone();
+        } else {
+            self.strstrs.insert(name.to_string(), val.clone());
         }
     }
 
@@ -69,12 +87,30 @@ impl Item {
         }
     }
 
+    pub fn set_bool(&mut self, name: &str, val: bool) {
+        if self.bools.contains_key(name) {
+            let v = self.bools.get_mut(name).unwrap();
+            *v = val;
+        } else {
+            self.bools.insert(name.to_string(), val);
+        }
+    }
+
     pub fn safe_u64(&self, name: &str, def: u64) -> u64 {
         if self.ids.contains_key(name) {
             self.ids[name].clone()
         }
         else {
             def
+        }
+    }
+
+    pub fn set_u64(&mut self, name: &str, val: u64) {
+        if self.u64s.contains_key(name) {
+            let v = self.u64s.get_mut(name).unwrap();
+            *v = val;
+        } else {
+            self.u64s.insert(name.to_string(), val);
         }
     }
 
@@ -87,30 +123,34 @@ impl Item {
         }
     }
 
+    pub fn set_id(&mut self, name: &str, val: u64) {
+        if self.ids.contains_key(name) {
+            let v = self.ids.get_mut(name).unwrap();
+            *v = val;
+        } else {
+            self.ids.insert(name.to_string(), val);
+        }
+    }
+
     pub fn merge(&mut self, itm: &Item) {
         for obj in &itm.strs {
-            let obj1 = self.strs.get_mut(obj.0).unwrap();
-            *obj1 = obj.1.clone();
+            self.set_str(obj.0, obj.1);
         }
 
         for obj in &itm.strstrs {
-            let obj1 = self.strstrs.get_mut(obj.0).unwrap();
-            *obj1 = obj.1.clone();
+            self.set_strstr(obj.0, obj.1);
         }
 
         for obj in &itm.bools {
-            let obj1 = self.bools.get_mut(obj.0).unwrap();
-            *obj1 = obj.1.clone();
+            self.set_bool(obj.0, *obj.1);
         }
 
         for obj in &itm.u64s {
-            let obj1 = self.u64s.get_mut(obj.0).unwrap();
-            *obj1 = obj.1.clone();
+            self.set_u64(obj.0, *obj.1);
         }
 
         for obj in &itm.ids {
-            let obj1 = self.ids.get_mut(obj.0).unwrap();
-            *obj1 = obj.1.clone();
+            self.set_id(obj.0, *obj.1);
         }
     }
 }
