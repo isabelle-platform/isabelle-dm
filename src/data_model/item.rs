@@ -90,8 +90,8 @@ impl Item {
 
     pub fn set_bool(&mut self, name: &str, val: bool) {
         let mut full_name = name;
-        if name.starts_with("!") {
-            full_name = &name[1..];
+        if name.starts_with("negated_") {
+            full_name = &name[8..];
         }
         if self.bools.contains_key(full_name) {
             let v = self.bools.get_mut(full_name).unwrap();
