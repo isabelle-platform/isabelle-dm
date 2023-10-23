@@ -102,8 +102,8 @@ impl Item {
     }
 
     pub fn safe_u64(&self, name: &str, def: u64) -> u64 {
-        if self.ids.contains_key(name) {
-            self.ids[name].clone()
+        if self.u64s.contains_key(name) {
+            self.u64s[name].clone()
         } else {
             def
         }
