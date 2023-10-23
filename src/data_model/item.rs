@@ -89,11 +89,15 @@ impl Item {
     }
 
     pub fn set_bool(&mut self, name: &str, val: bool) {
-        if self.bools.contains_key(name) {
-            let v = self.bools.get_mut(name).unwrap();
+        let mut full_name = name;
+        if name.starts_with("!") {
+            full_name = &name[1..];
+        }
+        if self.bools.contains_key(full_name) {
+            let v = self.bools.get_mut(full_name).unwrap();
             *v = val;
         } else {
-            self.bools.insert(name.to_string(), val);
+            self.bools.insert(full_name.to_string(), val);
         }
     }
 
