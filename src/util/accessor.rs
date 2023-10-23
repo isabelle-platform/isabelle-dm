@@ -24,6 +24,10 @@ pub fn unset_u64_map() -> HashMap<String, u64> {
     return HashMap::new();
 }
 
+pub fn unset_u64_vec() -> Vec<u64> {
+    return Vec::new();
+}
+
 pub fn unset_id() -> u64 {
     return u64::MAX;
 }

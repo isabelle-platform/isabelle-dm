@@ -18,4 +18,7 @@ pub struct ListQuery {
 
     #[serde(default = "unset_u64_max")]
     pub limit: u64,
+
+    #[serde(default = "unset_u64_vec")]
+    pub id_list: Vec<u64>,
 }
