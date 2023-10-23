@@ -156,4 +156,13 @@ impl Item {
             self.set_id(obj.0, *obj.1);
         }
     }
+
+    pub fn normalize_negated(&mut self) {
+        let bools = self.bools.clone();
+        for obj in &bools {
+            if obj.0.starts_with("negated_") && bools.contains_key(&obj.0[8..]) {
+                self.bools.remove(obj.0);
+            }
+        }
+    }
 }
