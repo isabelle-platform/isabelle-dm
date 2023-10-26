@@ -7,6 +7,9 @@ pub struct ListQuery {
     #[serde(default = "unset_str")]
     pub collection: String,
 
+    #[serde(default = "unset_str")]
+    pub context: String,
+
     #[serde(default = "unset_id")]
     pub id: u64,
 
