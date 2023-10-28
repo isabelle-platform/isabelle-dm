@@ -50,6 +50,19 @@ impl Item {
         }
     }
 
+    pub fn safe_str_with_empty(&self, name: &str, def: &str) -> String {
+        if self.strs.contains_key(name) {
+            if self.strs[name] == "" {
+                def.to_string()
+            }
+            else {
+                self.strs[name].clone()
+            }
+        } else {
+            def.to_string()
+        }
+    }
+
     pub fn set_str(&mut self, name: &str, val: &str) {
         if self.strs.contains_key(name) {
             let v = self.strs.get_mut(name).unwrap();
