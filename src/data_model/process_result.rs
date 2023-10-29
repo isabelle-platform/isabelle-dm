@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use yew::prelude::*;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
-pub struct LoginResult {
+pub struct ProcessResult {
     #[serde(default = "unset_bool")]
     pub succeeded: bool,
 
