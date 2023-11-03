@@ -23,7 +23,7 @@ pipeline {
       parallel {
         stage('Build (Linux)') {
           steps {
-            sh 'cargo build --release'
+            sh 'env PATH=${HOME}/.cargo/bin:${PATH} cargo build --release'
           }
         }
       }
@@ -33,6 +33,7 @@ pipeline {
       stages {
         stage('Prepare artifacts (branch)') {
           steps {
+            sh 'mkdir -p build'
             /* Create branch-build-linux and doc-branch-build */
             sh './tools/release.sh --out build/isabelle-dm-${BRANCH_NAME}-${BUILD_NUMBER}-linux-x86_64.tar.xz'
             /* Copy branch-build-linux to branch-latest-linux */
@@ -42,7 +43,7 @@ pipeline {
         stage('Prepare artifacts (versioned)') {
           when {
             expression {
-              BRANCH_NAME == 'master'
+              BRANCH_NAME == 'main'
             }
           }
           steps {
@@ -118,7 +119,7 @@ pipeline {
         stage('Publish artifacts (versioned)') {
           when {
             expression {
-              BRANCH_NAME == 'master'
+              BRANCH_NAME == 'main'
             }
           }
           steps {
