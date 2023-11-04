@@ -54,8 +54,7 @@ impl Item {
         if self.strs.contains_key(name) {
             if self.strs[name] == "" {
                 def.to_string()
-            }
-            else {
+            } else {
                 self.strs[name].clone()
             }
         } else {
