@@ -12,6 +12,10 @@ pub fn unset_str_map() -> HashMap<String, String> {
     return HashMap::new();
 }
 
+pub fn unset_str_vec() -> Vec<String> {
+    return Vec::new();
+}
+
 pub fn unset_strstr_map() -> HashMap<String, HashMap<String, String>> {
     return HashMap::new();
 }
