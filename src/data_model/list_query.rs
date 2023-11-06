@@ -20,6 +20,9 @@ pub struct ListQuery {
     pub id_max: u64,
 
     #[serde(default = "unset_u64_max")]
+    pub skip: u64,
+
+    #[serde(default = "unset_u64_max")]
     pub limit: u64,
 
     #[serde(default = "unset_u64_vec")]
