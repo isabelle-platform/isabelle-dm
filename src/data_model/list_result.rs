@@ -1,7 +1,7 @@
-use std::collections::HashMap;
 use crate::data_model::item::Item;
 use crate::util::accessor::*;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use yew::prelude::*;
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
