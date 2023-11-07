@@ -1,4 +1,9 @@
+use crate::data_model::item::Item;
 use std::collections::HashMap;
+
+pub fn unset_item_map() -> HashMap<u64, Item> {
+    return HashMap::new();
+}
 
 pub fn unset_bool() -> bool {
     return false;
