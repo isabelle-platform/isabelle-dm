@@ -27,4 +27,7 @@ pub struct ListQuery {
 
     #[serde(default = "unset_u64_vec")]
     pub id_list: Vec<u64>,
+
+    #[serde(default = "unset_str")]
+    pub sort_key: String,
 }
