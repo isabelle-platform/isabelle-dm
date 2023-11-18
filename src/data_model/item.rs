@@ -87,11 +87,7 @@ impl Item {
         }
     }
 
-    pub fn safe_strid(
-        &self,
-        name: &str,
-        def: &HashMap<u64, bool>,
-    ) -> HashMap<u64, bool> {
+    pub fn safe_strid(&self, name: &str, def: &HashMap<u64, bool>) -> HashMap<u64, bool> {
         if self.strids.contains_key(name) {
             self.strids[name].clone()
         } else {
