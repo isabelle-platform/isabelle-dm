@@ -21,11 +21,28 @@ pipeline {
       }
     }
     stage('Perform checks') {
-      steps {
-        sh 'env PATH=${HOME}/.cargo/bin:${PATH} cargo fix && git diff --exit-code'
-        sh 'env PATH=${HOME}/.cargo/bin:${PATH} cargo fmt && git diff --exit-code'
-        sh 'git tag | grep ${SHORT_VERSION}'
-        sh 'cat Cargo.toml | grep ${SHORT_VERSION}'
+      stages {
+        stage("Fixes/formatting") {
+          steps {
+            sh 'env PATH=${HOME}/.cargo/bin:${PATH} cargo fix && git diff --exit-code'
+            sh 'env PATH=${HOME}/.cargo/bin:${PATH} cargo fmt && git diff --exit-code'
+          }
+        }
+        stage("Check version in Git tags") {
+          when {
+            expression {
+              BRANCH_NAME == 'main'
+            }
+          }
+          steps {
+            sh 'git tag | grep ${SHORT_VERSION}'
+          }
+        }
+        stage("Check version in Cargo") {
+          steps {
+            sh 'cat Cargo.toml | grep ${SHORT_VERSION}'
+          }
+        }
       }
     }
     stage('Build for all platforms') {
@@ -56,7 +73,7 @@ pipeline {
             }
           }
           steps {
-          /* Create versioned artifacts */
+            /* Create versioned artifacts */
             sh 'mkdir -p build/versioned_artifacts'
 
             /* Copy branch-latest-linux to fullver-linux */
