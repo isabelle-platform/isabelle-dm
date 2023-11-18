@@ -192,6 +192,10 @@ impl Item {
         for obj in &itm.ids {
             self.set_id(obj.0, *obj.1);
         }
+
+        for obj in &itm.strids {
+            self.set_strid(obj.0, obj.1);
+        }
     }
 
     pub fn normalize_negated(&mut self) {
