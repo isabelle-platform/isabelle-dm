@@ -30,4 +30,7 @@ pub struct ListQuery {
 
     #[serde(default = "unset_str")]
     pub sort_key: String,
+
+    #[serde(default = "unset_str")]
+    pub filter: String,
 }
