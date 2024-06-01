@@ -16,3 +16,4 @@ Cargo.lock
 /build
 /*.tar.xz
 /ttg
+.DS_Store
