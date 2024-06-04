@@ -27,6 +27,7 @@ use yew::prelude::*;
 
 /// Query arguments: collection + merge
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct MergeColl {
     #[serde(default = "unset_bool")]
     pub merge: bool,

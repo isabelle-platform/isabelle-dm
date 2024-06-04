@@ -27,6 +27,7 @@ use yew::prelude::*;
 
 /// More detailed user information augmented with site data
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct DetailedLoginUser {
     /// Username
     #[serde(default = "unset_str")]

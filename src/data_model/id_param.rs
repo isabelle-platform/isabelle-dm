@@ -27,6 +27,7 @@ use yew::prelude::*;
 
 /// Query argument: id
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct IdParam {
     #[serde(default = "unset_id")]
     pub id: u64,

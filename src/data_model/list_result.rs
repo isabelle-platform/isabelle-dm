@@ -29,6 +29,7 @@ use yew::prelude::*;
 
 /// Result of query: map of items, total count
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct ListResult {
     #[serde(default = "unset_item_map")]
     pub map: HashMap<u64, Item>,

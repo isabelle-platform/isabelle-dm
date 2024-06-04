@@ -27,6 +27,7 @@ use yew::prelude::*;
 
 /// Query argument: delete or not
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct DelParam {
     #[serde(default = "unset_bool")]
     pub del: bool,

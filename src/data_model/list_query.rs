@@ -27,6 +27,7 @@ use yew::prelude::*;
 
 /// Query arguments: everything to get list of items
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct ListQuery {
     #[serde(default = "unset_str")]
     pub collection: String,

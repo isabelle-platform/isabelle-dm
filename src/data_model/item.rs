@@ -28,6 +28,7 @@ use yew::prelude::*;
 
 /// Main isabelle object structure carrying hash maps
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct Item {
     #[serde(default = "unset_id")]
     pub id: u64,

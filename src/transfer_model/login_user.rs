@@ -27,6 +27,7 @@ use yew::prelude::*;
 
 /// Logged in user information
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct LoginUser {
     #[serde(default = "unset_str")]
     pub username: String,

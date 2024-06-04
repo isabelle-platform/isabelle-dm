@@ -27,6 +27,7 @@ use yew::prelude::*;
 
 /// Query result: success/error
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
 pub struct ProcessResult {
     #[serde(default = "unset_bool")]
     pub succeeded: bool,
