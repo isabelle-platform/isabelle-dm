@@ -21,11 +21,12 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-pub mod data_object_action;
-pub mod del_param;
-pub mod id_param;
-pub mod item;
-pub mod list_query;
-pub mod list_result;
-pub mod merge_coll;
-pub mod process_result;
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
+#[repr(C)]
+pub enum DataObjectAction {
+    Create,
+    Modify,
+    Delete,
+}
