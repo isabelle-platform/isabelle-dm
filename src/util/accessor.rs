@@ -21,7 +21,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-use crate::data_model::item::Item;
+use crate::data_model::item::*;
 use std::collections::HashMap;
 
 pub fn unset_item_map() -> HashMap<u64, Item> {
@@ -78,4 +78,8 @@ pub fn unset_u64_max() -> u64 {
 
 pub fn unset_time() -> u64 {
     return 0;
+}
+
+pub fn unset_data_node() -> ItemDataNode {
+    return ItemDataNode::new();
 }
