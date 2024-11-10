@@ -51,6 +51,22 @@ impl ItemDataNode {
         }
         return None;
     }
+
+    pub fn merge(&mut self, node: &ItemDataNode) {
+        self.value = node.value.clone();
+        self.value_type = node.value_type.clone();
+        for subnode in &node.subnodes {
+            let idx = subnode.0.clone();
+
+            if !self.subnodes.contains_key(&idx) {
+                let tmp = ItemDataNode::new();
+                self.subnodes.insert(idx.clone(), tmp);
+            }
+
+            let new_node = self.subnodes.get_mut(&idx).unwrap();
+            new_node.merge(&subnode.1);
+        }
+    }
 }
 
 /// Main isabelle object structure carrying hash maps
@@ -248,6 +264,8 @@ impl Item {
         for obj in &itm.strids {
             self.set_strid(obj.0, obj.1);
         }
+
+        self.root_node.merge(&itm.root_node);
     }
 
     pub fn normalize_negated(&mut self) {
