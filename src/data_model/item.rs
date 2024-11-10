@@ -26,6 +26,33 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use yew::prelude::*;
 
+#[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
+#[repr(C)]
+pub struct ItemDataNode {
+    pub value: String,
+    pub value_type: String,
+    pub subnodes: HashMap<String, ItemDataNode>,
+}
+
+unsafe impl Send for ItemDataNode {}
+
+impl ItemDataNode {
+    pub fn new() -> Self {
+        Self {
+            value: "".to_string(),
+            value_type: "".to_string(),
+            subnodes: HashMap::new(),
+        }
+    }
+
+    pub fn get_subnode(&self, name: &str) -> Option<ItemDataNode> {
+        if self.subnodes.contains_key(name) {
+            return Some(self.subnodes[name].clone());
+        }
+        return None;
+    }
+}
+
 /// Main isabelle object structure carrying hash maps
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 #[repr(C)]
@@ -50,6 +77,8 @@ pub struct Item {
 
     #[serde(default = "unset_u64_map")]
     pub ids: HashMap<String, u64>,
+
+    pub root_node: ItemDataNode,
 }
 
 unsafe impl Send for Item {}
@@ -64,6 +93,7 @@ impl Item {
             bools: HashMap::new(),
             u64s: HashMap::new(),
             ids: HashMap::new(),
+            root_node: ItemDataNode::new(),
         }
     }
 
@@ -226,5 +256,21 @@ impl Item {
                 self.bools.remove(obj.0);
             }
         }
+    }
+
+    pub fn get_node(&self, path: &str) -> Option<ItemDataNode> {
+        let parts: Vec<&str> = path.split('.').collect();
+        let mut cur_node = self.root_node.clone();
+
+        for part in parts {
+            let new_node = cur_node.get_subnode(part);
+            if new_node.is_none() {
+                return None;
+            }
+
+            cur_node = new_node.unwrap();
+        }
+
+        return Some(cur_node.clone());
     }
 }
