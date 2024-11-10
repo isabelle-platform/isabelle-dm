@@ -280,7 +280,9 @@ impl Item {
 
         for part in parts {
             if !cur_node.subnodes.contains_key(part) {
-                cur_node.subnodes.insert(part.to_string(), ItemDataNode::new());
+                cur_node
+                    .subnodes
+                    .insert(part.to_string(), ItemDataNode::new());
             }
 
             cur_node = cur_node.subnodes.get_mut(part).unwrap();
