@@ -78,6 +78,7 @@ pub struct Item {
     #[serde(default = "unset_u64_map")]
     pub ids: HashMap<String, u64>,
 
+    #[serde(default = "unset_data_node")]
     pub root_node: ItemDataNode,
 }
 
@@ -260,17 +261,33 @@ impl Item {
 
     pub fn get_node(&self, path: &str) -> Option<ItemDataNode> {
         let parts: Vec<&str> = path.split('.').collect();
-        let mut cur_node = self.root_node.clone();
+        let mut cur_node = &self.root_node;
 
         for part in parts {
-            let new_node = cur_node.get_subnode(part);
-            if new_node.is_none() {
+            if !cur_node.subnodes.contains_key(part) {
                 return None;
             }
 
-            cur_node = new_node.unwrap();
+            cur_node = &cur_node.subnodes[part];
         }
 
         return Some(cur_node.clone());
+    }
+
+    pub fn set_node(&mut self, path: &str, data_node: &ItemDataNode) {
+        let parts: Vec<&str> = path.split('.').collect();
+        let mut cur_node = &mut self.root_node;
+
+        for part in parts {
+            if !cur_node.subnodes.contains_key(part) {
+                cur_node.subnodes.insert(part.to_string(), ItemDataNode::new());
+            }
+
+            cur_node = cur_node.subnodes.get_mut(part).unwrap();
+        }
+
+        cur_node.value = data_node.value.clone();
+        cur_node.value_type = data_node.value_type.clone();
+        cur_node.subnodes = data_node.subnodes.clone();
     }
 }
