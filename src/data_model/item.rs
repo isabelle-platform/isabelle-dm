@@ -29,8 +29,11 @@ use yew::prelude::*;
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 #[repr(C)]
 pub struct ItemDataNode {
+    #[serde(default = "unset_str")]
     pub value: String,
+    #[serde(default = "unset_str")]
     pub value_type: String,
+    #[serde(default = "unset_bool")]
     pub writable: bool,
     pub subnodes: HashMap<String, ItemDataNode>,
 }
