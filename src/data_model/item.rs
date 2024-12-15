@@ -31,6 +31,7 @@ use yew::prelude::*;
 pub struct ItemDataNode {
     pub value: String,
     pub value_type: String,
+    pub writable: bool,
     pub subnodes: HashMap<String, ItemDataNode>,
 }
 
@@ -41,6 +42,7 @@ impl ItemDataNode {
         Self {
             value: "".to_string(),
             value_type: "".to_string(),
+            writable: false,
             subnodes: HashMap::new(),
         }
     }
