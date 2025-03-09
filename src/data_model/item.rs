@@ -63,6 +63,8 @@ impl ItemDataNode {
     pub fn merge(&mut self, node: &ItemDataNode) {
         self.value = node.value.clone();
         self.value_type = node.value_type.clone();
+        self.edited = node.edited.clone();
+        self.writable = node.writable.clone();
         for subnode in &node.subnodes {
             let idx = subnode.0.clone();
 
