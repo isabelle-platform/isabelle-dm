@@ -35,6 +35,8 @@ pub struct ItemDataNode {
     pub value_type: String,
     #[serde(default = "unset_bool")]
     pub writable: bool,
+    #[serde(default = "unset_bool")]
+    pub edited: bool,
     pub subnodes: HashMap<String, ItemDataNode>,
 }
 
@@ -46,6 +48,7 @@ impl ItemDataNode {
             value: "".to_string(),
             value_type: "".to_string(),
             writable: false,
+            edited: false,
             subnodes: HashMap::new(),
         }
     }
