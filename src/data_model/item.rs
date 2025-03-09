@@ -316,6 +316,8 @@ impl Item {
 
         cur_node.value = data_node.value.clone();
         cur_node.value_type = data_node.value_type.clone();
+        cur_node.writable = data_node.writable.clone();
+        cur_node.edited = data_node.edited.clone();
         cur_node.subnodes = data_node.subnodes.clone();
     }
 }
