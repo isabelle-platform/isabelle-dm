@@ -52,4 +52,8 @@ pub struct DetailedLoginUser {
     /// Licensing information
     #[serde(default = "unset_str")]
     pub licensed_to: String,
+
+    /// Application-depended user parameters
+    #[serde(default = "unset_str_map")]
+    pub params: HashMap<String, String>,
 }
