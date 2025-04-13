@@ -23,6 +23,7 @@
  */
 use crate::util::accessor::*;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use yew::prelude::*;
 
 /// More detailed user information augmented with site data
@@ -52,4 +53,8 @@ pub struct DetailedLoginUser {
     /// Licensing information
     #[serde(default = "unset_str")]
     pub licensed_to: String,
+
+    /// Application-depended user parameters
+    #[serde(default = "unset_str_map")]
+    pub params: HashMap<String, String>,
 }
