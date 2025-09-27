@@ -23,6 +23,7 @@
  */
 use crate::util::accessor::*;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use yew::prelude::*;
 
 /// Query result: success/error
@@ -31,6 +32,9 @@ use yew::prelude::*;
 pub struct ProcessResult {
     #[serde(default = "unset_bool")]
     pub succeeded: bool,
+
+    #[serde(default = "unset_str_map")]
+    pub data: HashMap<String, String>,
 
     #[serde(default = "unset_str")]
     pub error: String,
