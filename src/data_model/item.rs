@@ -81,6 +81,10 @@ impl ItemDataNode {
         self.writable = node.writable.clone();
         for subnode in &node.subnodes {
             let idx = subnode.0.clone();
+            if subnode.1.action == ItemDataNodeAction::Remove {
+                self.subnodes.remove(&idx);
+                continue;
+            }
 
             if !self.subnodes.contains_key(&idx) {
                 let tmp = ItemDataNode::new();
