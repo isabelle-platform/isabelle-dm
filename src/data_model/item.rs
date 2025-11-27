@@ -32,6 +32,7 @@ pub enum ItemDataNodeAction {
     None,
     Edit,
     Add,
+    StageRemove,
     Remove,
 }
 
