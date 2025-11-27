@@ -26,6 +26,19 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use yew::prelude::*;
 
+#[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
+#[repr(C)]
+pub enum ItemDataNodeAction {
+    None,
+    Edit,
+    Add,
+    Remove,
+}
+
+pub fn unset_action() -> ItemDataNodeAction {
+    return ItemDataNodeAction::None;
+}
+
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 #[repr(C)]
 pub struct ItemDataNode {
@@ -35,8 +48,9 @@ pub struct ItemDataNode {
     pub value_type: String,
     #[serde(default = "unset_bool")]
     pub writable: bool,
-    #[serde(default = "unset_bool")]
-    pub edited: bool,
+    #[serde(default = "unset_action")]
+    pub action: ItemDataNodeAction,
+
     pub subnodes: HashMap<String, ItemDataNode>,
 }
 
@@ -48,7 +62,7 @@ impl ItemDataNode {
             value: "".to_string(),
             value_type: "".to_string(),
             writable: false,
-            edited: false,
+            action: ItemDataNodeAction::None,
             subnodes: HashMap::new(),
         }
     }
@@ -63,7 +77,7 @@ impl ItemDataNode {
     pub fn merge(&mut self, node: &ItemDataNode) {
         self.value = node.value.clone();
         self.value_type = node.value_type.clone();
-        self.edited = node.edited.clone();
+        self.action = node.action.clone();
         self.writable = node.writable.clone();
         for subnode in &node.subnodes {
             let idx = subnode.0.clone();
@@ -319,7 +333,7 @@ impl Item {
         cur_node.value = data_node.value.clone();
         cur_node.value_type = data_node.value_type.clone();
         cur_node.writable = data_node.writable.clone();
-        cur_node.edited = data_node.edited.clone();
+        cur_node.action = data_node.action.clone();
         cur_node.subnodes = data_node.subnodes.clone();
     }
 }
