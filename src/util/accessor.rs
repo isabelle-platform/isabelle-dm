@@ -22,7 +22,45 @@
  * DEALINGS IN THE SOFTWARE.
  */
 use crate::data_model::item::*;
+use serde::{Deserialize, Deserializer};
 use std::collections::HashMap;
+
+#[derive(Deserialize)]
+#[serde(untagged)]
+enum IdEntry {
+    Pair((u16, u64)),
+    Bare(u64),
+}
+
+impl IdEntry {
+    fn into_pair(self) -> (u16, u64) {
+        match self {
+            IdEntry::Pair(p) => p,
+            IdEntry::Bare(n) => (0u16, n),
+        }
+    }
+}
+
+pub fn deserialize_id_map<'de, D>(d: D) -> Result<HashMap<String, (u16, u64)>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let raw: HashMap<String, IdEntry> = HashMap::deserialize(d)?;
+    Ok(raw.into_iter().map(|(k, v)| (k, v.into_pair())).collect())
+}
+
+pub fn deserialize_strid_map<'de, D>(
+    d: D,
+) -> Result<HashMap<String, Vec<(u16, u64)>>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let raw: HashMap<String, Vec<IdEntry>> = HashMap::deserialize(d)?;
+    Ok(raw
+        .into_iter()
+        .map(|(k, v)| (k, v.into_iter().map(IdEntry::into_pair).collect()))
+        .collect())
+}
 
 pub fn unset_item_map() -> HashMap<u64, Item> {
     return HashMap::new();

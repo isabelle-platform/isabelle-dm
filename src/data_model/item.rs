@@ -111,7 +111,7 @@ pub struct Item {
     #[serde(default = "unset_strstr_map")]
     pub strstrs: HashMap<String, HashMap<String, String>>,
 
-    #[serde(default = "unset_strid_map")]
+    #[serde(default = "unset_strid_map", deserialize_with = "deserialize_strid_map")]
     pub strids: HashMap<String, Vec<(u16, u64)>>,
 
     #[serde(default = "unset_bool_map")]
@@ -120,7 +120,7 @@ pub struct Item {
     #[serde(default = "unset_u64_map")]
     pub u64s: HashMap<String, u64>,
 
-    #[serde(default = "unset_id_map")]
+    #[serde(default = "unset_id_map", deserialize_with = "deserialize_id_map")]
     pub ids: HashMap<String, (u16, u64)>,
 
     #[serde(default = "unset_data_node")]
