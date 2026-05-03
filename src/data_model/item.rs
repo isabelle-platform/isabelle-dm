@@ -112,7 +112,7 @@ pub struct Item {
     pub strstrs: HashMap<String, HashMap<String, String>>,
 
     #[serde(default = "unset_strid_map")]
-    pub strids: HashMap<String, Vec<u64>>,
+    pub strids: HashMap<String, Vec<(u16, u64)>>,
 
     #[serde(default = "unset_bool_map")]
     pub bools: HashMap<String, bool>,
@@ -120,8 +120,8 @@ pub struct Item {
     #[serde(default = "unset_u64_map")]
     pub u64s: HashMap<String, u64>,
 
-    #[serde(default = "unset_u64_map")]
-    pub ids: HashMap<String, u64>,
+    #[serde(default = "unset_id_map")]
+    pub ids: HashMap<String, (u16, u64)>,
 
     #[serde(default = "unset_data_node")]
     pub root_node: ItemDataNode,
@@ -188,7 +188,7 @@ impl Item {
         }
     }
 
-    pub fn safe_strid(&self, name: &str, def: &Vec<u64>) -> Vec<u64> {
+    pub fn safe_strid(&self, name: &str, def: &Vec<(u16, u64)>) -> Vec<(u16, u64)> {
         if self.strids.contains_key(name) {
             self.strids[name].clone()
         } else {
@@ -196,7 +196,7 @@ impl Item {
         }
     }
 
-    pub fn set_strid(&mut self, name: &str, val: &Vec<u64>) {
+    pub fn set_strid(&mut self, name: &str, val: &Vec<(u16, u64)>) {
         if self.strids.contains_key(name) {
             let v = self.strids.get_mut(name).unwrap();
             *v = val.clone();
@@ -252,7 +252,7 @@ impl Item {
         }
     }
 
-    pub fn safe_id(&self, name: &str, def: u64) -> u64 {
+    pub fn safe_id(&self, name: &str, def: (u16, u64)) -> (u16, u64) {
         if self.ids.contains_key(name) {
             self.ids[name].clone()
         } else {
@@ -260,7 +260,7 @@ impl Item {
         }
     }
 
-    pub fn set_id(&mut self, name: &str, val: u64) {
+    pub fn set_id(&mut self, name: &str, val: (u16, u64)) {
         if self.ids.contains_key(name) {
             let v = self.ids.get_mut(name).unwrap();
             *v = val;

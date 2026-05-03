@@ -40,7 +40,7 @@ pub fn unset_str_map() -> HashMap<String, String> {
     return HashMap::new();
 }
 
-pub fn unset_strid_map() -> HashMap<String, Vec<u64>> {
+pub fn unset_strid_map() -> HashMap<String, Vec<(u16, u64)>> {
     return HashMap::new();
 }
 
@@ -57,6 +57,10 @@ pub fn unset_bool_map() -> HashMap<String, bool> {
 }
 
 pub fn unset_u64_map() -> HashMap<String, u64> {
+    return HashMap::new();
+}
+
+pub fn unset_id_map() -> HashMap<String, (u16, u64)> {
     return HashMap::new();
 }
 
