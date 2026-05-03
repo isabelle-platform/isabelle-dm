@@ -43,15 +43,16 @@ pub fn unset_action() -> ItemDataNodeAction {
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 #[repr(C)]
 pub struct ItemDataNode {
-    #[serde(default = "unset_str")]
+    #[serde(default = "unset_str", skip_serializing_if = "is_empty_str")]
     pub value: String,
-    #[serde(default = "unset_str")]
+    #[serde(default = "unset_str", skip_serializing_if = "is_empty_str")]
     pub value_type: String,
-    #[serde(default = "unset_bool")]
+    #[serde(default = "unset_bool", skip_serializing_if = "is_false")]
     pub writable: bool,
-    #[serde(default = "unset_action")]
+    #[serde(default = "unset_action", skip_serializing_if = "is_unset_action")]
     pub action: ItemDataNodeAction,
 
+    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
     pub subnodes: HashMap<String, ItemDataNode>,
 }
 
@@ -102,28 +103,36 @@ impl ItemDataNode {
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug, Properties)]
 #[repr(C)]
 pub struct Item {
-    #[serde(default = "unset_id")]
+    #[serde(default = "unset_id", skip_serializing_if = "is_unset_id")]
     pub id: u64,
 
-    #[serde(default = "unset_str_map")]
+    #[serde(default = "unset_str_map", skip_serializing_if = "HashMap::is_empty")]
     pub strs: HashMap<String, String>,
 
-    #[serde(default = "unset_strstr_map")]
+    #[serde(default = "unset_strstr_map", skip_serializing_if = "HashMap::is_empty")]
     pub strstrs: HashMap<String, HashMap<String, String>>,
 
-    #[serde(default = "unset_strid_map", deserialize_with = "deserialize_strid_map")]
+    #[serde(
+        default = "unset_strid_map",
+        deserialize_with = "deserialize_strid_map",
+        skip_serializing_if = "HashMap::is_empty"
+    )]
     pub strids: HashMap<String, Vec<(u16, u64)>>,
 
-    #[serde(default = "unset_bool_map")]
+    #[serde(default = "unset_bool_map", skip_serializing_if = "HashMap::is_empty")]
     pub bools: HashMap<String, bool>,
 
-    #[serde(default = "unset_u64_map")]
+    #[serde(default = "unset_u64_map", skip_serializing_if = "HashMap::is_empty")]
     pub u64s: HashMap<String, u64>,
 
-    #[serde(default = "unset_id_map", deserialize_with = "deserialize_id_map")]
+    #[serde(
+        default = "unset_id_map",
+        deserialize_with = "deserialize_id_map",
+        skip_serializing_if = "HashMap::is_empty"
+    )]
     pub ids: HashMap<String, (u16, u64)>,
 
-    #[serde(default = "unset_data_node")]
+    #[serde(default = "unset_data_node", skip_serializing_if = "is_empty_data_node")]
     pub root_node: ItemDataNode,
 }
 

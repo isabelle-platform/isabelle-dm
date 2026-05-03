@@ -125,3 +125,27 @@ pub fn unset_time() -> u64 {
 pub fn unset_data_node() -> ItemDataNode {
     return ItemDataNode::new();
 }
+
+pub fn is_unset_id(v: &u64) -> bool {
+    *v == u64::MAX
+}
+
+pub fn is_false(v: &bool) -> bool {
+    !*v
+}
+
+pub fn is_empty_str(v: &String) -> bool {
+    v.is_empty()
+}
+
+pub fn is_unset_action(a: &ItemDataNodeAction) -> bool {
+    matches!(a, ItemDataNodeAction::None)
+}
+
+pub fn is_empty_data_node(n: &ItemDataNode) -> bool {
+    n.value.is_empty()
+        && n.value_type.is_empty()
+        && !n.writable
+        && matches!(n.action, ItemDataNodeAction::None)
+        && n.subnodes.is_empty()
+}

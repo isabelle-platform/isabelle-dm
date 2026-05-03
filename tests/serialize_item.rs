@@ -91,9 +91,29 @@ fn bson_full_round_trip_preserves_pairs() {
 }
 
 #[test]
-fn empty_item_serializes_empty_id_maps() {
+fn empty_item_serializes_to_empty_object() {
+    // All fields are skipped when empty/unset, including id == u64::MAX.
     let itm = Item::new();
     let v: Value = serde_json::from_str(&serde_json::to_string(&itm).unwrap()).unwrap();
-    assert_eq!(v["ids"], json!({}));
-    assert_eq!(v["strids"], json!({}));
+    assert_eq!(v, json!({}));
+}
+
+#[test]
+fn empty_item_now_serializes_to_bson() {
+    // Previously this failed with UnsignedIntegerExceededRange because
+    // id = u64::MAX. With skip_serializing_if it must succeed.
+    let itm = Item::new();
+    let b = bson::to_bson(&itm).expect("empty item must serialize to bson");
+    let doc = b.as_document().unwrap();
+    assert!(doc.is_empty(), "expected empty bson doc, got {:?}", doc);
+}
+
+#[test]
+fn partially_filled_item_only_emits_filled_fields() {
+    let mut itm = Item::new();
+    itm.set_str("name", "alpha");
+    let v: Value = serde_json::from_str(&serde_json::to_string(&itm).unwrap()).unwrap();
+    let obj = v.as_object().unwrap();
+    assert_eq!(obj.len(), 1);
+    assert_eq!(obj.get("strs"), Some(&json!({ "name": "alpha" })));
 }
