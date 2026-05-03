@@ -49,9 +49,7 @@ where
     Ok(raw.into_iter().map(|(k, v)| (k, v.into_pair())).collect())
 }
 
-pub fn deserialize_strid_map<'de, D>(
-    d: D,
-) -> Result<HashMap<String, Vec<(u16, u64)>>, D::Error>
+pub fn deserialize_strid_map<'de, D>(d: D) -> Result<HashMap<String, Vec<(u16, u64)>>, D::Error>
 where
     D: Deserializer<'de>,
 {

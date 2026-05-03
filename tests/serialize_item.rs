@@ -50,7 +50,10 @@ fn json_full_round_trip_preserves_pairs() {
     assert_eq!(back.safe_id("owner", (9, 9)), (3, 42));
     assert_eq!(back.safe_id("parent", (9, 9)), (0, 100));
     assert_eq!(back.safe_strid("tags", &vec![]), vec![(1, 10), (2, 20)]);
-    assert_eq!(back.safe_strid("empty", &vec![(9, 9)]), Vec::<(u16, u64)>::new());
+    assert_eq!(
+        back.safe_strid("empty", &vec![(9, 9)]),
+        Vec::<(u16, u64)>::new()
+    );
 }
 
 #[test]

@@ -59,7 +59,10 @@ fn json_legacy_item_empty_collections() {
 
     let itm: Item = serde_json::from_str(raw).expect("parse legacy json");
 
-    assert_eq!(itm.safe_strid("empty", &vec![(9, 9)]), Vec::<(u16, u64)>::new());
+    assert_eq!(
+        itm.safe_strid("empty", &vec![(9, 9)]),
+        Vec::<(u16, u64)>::new()
+    );
     assert_eq!(itm.ids.len(), 0);
 }
 

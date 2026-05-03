@@ -109,7 +109,10 @@ pub struct Item {
     #[serde(default = "unset_str_map", skip_serializing_if = "HashMap::is_empty")]
     pub strs: HashMap<String, String>,
 
-    #[serde(default = "unset_strstr_map", skip_serializing_if = "HashMap::is_empty")]
+    #[serde(
+        default = "unset_strstr_map",
+        skip_serializing_if = "HashMap::is_empty"
+    )]
     pub strstrs: HashMap<String, HashMap<String, String>>,
 
     #[serde(
@@ -132,7 +135,10 @@ pub struct Item {
     )]
     pub ids: HashMap<String, (u16, u64)>,
 
-    #[serde(default = "unset_data_node", skip_serializing_if = "is_empty_data_node")]
+    #[serde(
+        default = "unset_data_node",
+        skip_serializing_if = "is_empty_data_node"
+    )]
     pub root_node: ItemDataNode,
 }
 
